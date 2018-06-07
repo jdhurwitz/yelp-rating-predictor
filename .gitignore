@@ -1,0 +1,10 @@
+GoogleNews-vectors-negative300.bin
+/yelp-recsys-2013
+.ipynb_checkpoints/
+*.npy
+df_*
+/data
+GoogleNews*
+/glove
+vecs*
+*.pdf

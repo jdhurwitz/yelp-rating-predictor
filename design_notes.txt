@@ -1,0 +1,22 @@
+First pass with just raw averaged word2vec vectors achieved 50% train accuracy. NN model was better than RF.
+
+No notion of information about the user is currently being used, so it would be good to get an idea of the 
+user's average rating. Some people are super pessimistic and others are really optimistic. How to featurize this?
+
+The data contains Yelp reviews, businesses, users, and checkins for Phoenix, AZ. 
+
+-In the training set:
+11,537 businesses
+8,282 checkin sets
+43,873 users
+229,907 reviews
+
+-In the testing set:
+1,205 businesses
+734 checkin sets
+5,105 users
+22,956 reviews to predict
+
+The training data consists of a set of reviews for businesses, each with a star rating as well as information about the user, votes, and the text itself. One of the issues with the dataset is that the testing data has the actual review text removed. 
+
+As such, the training set (with the included reviews) was partitioned into a train and test set with disjoint data. The issue here is that there are limited training examples, so DL solutions don't have much to go off of. Transfer learning might be a good approach. 
