@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ssh -L 8080:nlp8.cs.ucla.edu:22 hurwitz@lion.cs.ucla.edu

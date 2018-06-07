@@ -10,6 +10,7 @@
 import time, helper, torch
 import torch.nn as nn
 from torch.nn.utils import clip_grad_norm
+import numpy as np
 
 
 class Train:
@@ -19,7 +20,19 @@ class Train:
         self.model = model
         self.dictionary = dictionary
         self.config = config
-        self.criterion = nn.CrossEntropyLoss()
+
+        #weighting
+        if self.config.class_weight:
+            train_dist = model.class_distributions['train']
+            #invert
+            train_dist = [1/val for key, val in train_dist.items()]
+            train_dist = np.array(train_dist)
+
+            weights = torch.from_numpy(train_dist)
+            self.criterion = nn.CrossEntropyLoss(weight=weights)
+        else:
+            self.criterion = nn.CrossEntropyLoss()
+
         if self.config.cuda and torch.cuda.is_available():
             self.criterion = self.criterion.cuda()
 
@@ -102,7 +115,7 @@ class Train:
 
             score = self.model(train_sentences1, sent_len1, train_sentences2, sent_len2)
             n_correct = (torch.max(score, 1)[1].view(train_labels.size()).data == train_labels.data).sum()
-            # print (' score size ', score.size(), train_labels.size())
+
             loss = self.criterion(score, train_labels)
             # Important if we are using nn.DataParallel()
             if loss.size(0) > 1:

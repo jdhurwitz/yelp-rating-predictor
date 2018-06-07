@@ -65,6 +65,16 @@ print('test set size = ', len(test_corpus.data))
 #pull the distributions
 class_distributions = {}
 class_distributions['train'] = train_corpus.class_distribution
+#check to see if train set is actually imbalanced
+if args.class_weight is True:
+    if len(
+            set(
+                class_distributions['train'].values()
+            )
+    ) == 1: #we have all one value -> no need to weight
+        args.class_weight = False
+
+
 class_distributions['dev'] = dev_corpus.class_distribution
 class_distributions['test'] = test_corpus.class_distribution
 
