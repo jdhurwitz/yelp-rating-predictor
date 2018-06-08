@@ -58,7 +58,7 @@ if __name__ == "__main__":
     dictionary = helper.load_object(args.save_path + 'dictionary.p')
     embeddings_index = helper.load_word_embeddings(args.word_vectors_directory, args.word_vectors_file,
                                                    dictionary.word2idx)
-    model = BCN(dictionary, embeddings_index, args)
+    model = BCN(dictionary, embeddings_index, class_distributions=None, args)
     if args.cuda and torch.cuda.is_available():
         torch.cuda.set_device(args.gpu)
         model = model.cuda()
