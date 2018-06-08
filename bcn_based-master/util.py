@@ -70,7 +70,7 @@ def get_args():
                         help='dropout applied to layers (0 = no dropout)')
     parser.add_argument('--seed', type=int, default=1111,
                         help='random seed for reproducibility')
-    parser.add_argument('--cuda', action='store_false',
+    parser.add_argument('--cuda', action='store_true',
                         help='use CUDA for computation')
     parser.add_argument('--print_every', type=int, default=100,
                         help='training report interval')

@@ -21,6 +21,7 @@ if not os.path.exists(args.save_path):
 numpy.random.seed(args.seed)
 torch.manual_seed(args.seed)
 if torch.cuda.is_available():
+    print("CUDA available")
     if not args.cuda:
         print("WARNING: You have a CUDA device, so you should probably run with --cuda")
     else:
