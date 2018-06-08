@@ -8,5 +8,6 @@ GoogleNews*
 /glove
 vecs*
 *.pdf
-*.xml
+bcn_based-master/.idea/workspace.xml
 connect.sh
+*~

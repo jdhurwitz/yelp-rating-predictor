@@ -68,7 +68,7 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1463">
+            <state relative-caret-position="1464">
               <caret line="102" column="12" lean-forward="false" selection-start-line="102" selection-start-column="8" selection-end-line="102" selection-end-column="12" />
               <folding>
                 <element signature="e#392#461#0" expanded="true" />
@@ -157,7 +157,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="431" />
-    <option name="y" value="23" />
+    <option name="y" value="203" />
     <option name="width" value="1440" />
     <option name="height" value="877" />
   </component>
@@ -416,8 +416,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="431" y="23" width="1440" height="877" extended-state="0" />
-    <editor active="true" />
+    <frame x="431" y="203" width="1440" height="877" extended-state="0" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17381974" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -738,7 +737,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1463">
+        <state relative-caret-position="1464">
           <caret line="102" column="12" lean-forward="false" selection-start-line="102" selection-start-column="8" selection-end-line="102" selection-end-column="12" />
           <folding>
             <element signature="e#392#461#0" expanded="true" />
