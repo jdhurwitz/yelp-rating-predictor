@@ -13,6 +13,7 @@ import torch.nn.functional as f
 from collections import OrderedDict
 from nn_layer import EmbeddingLayer, Encoder, MaxoutNetwork
 
+PC = False
 
 # details of BCN can be found in the paper, "Learned in Translation: Contextualized Word Vectors"
 class BCN(nn.Module):
@@ -74,10 +75,13 @@ class BCN(nn.Module):
 
         # step5: compute conditioned representations [batch_size x max_length x hidden_size * num_directions]
 
-        conditioned_x = torch.bmm(f.softmax(affinity_mat, 2).transpose(1, 2), encoded_x)
-        conditioned_y = torch.bmm(f.softmax(affinity_mat.transpose(1, 2), 2).transpose(1, 2), encoded_y)
-        #conditioned_x = torch.bmm(f.softmax(affinity_mat).transpose(1, 2), encoded_x)
-#        conditioned_y = torch.bmm(f.softmax(affinity_mat.transpose(1, 2)).transpose(1, 2), encoded_y)
+
+        if PC:
+            conditioned_x = torch.bmm(f.softmax(affinity_mat).transpose(1, 2), encoded_x)
+            conditioned_y = torch.bmm(f.softmax(affinity_mat.transpose(1, 2)).transpose(1, 2), encoded_y)
+        else:
+            conditioned_x = torch.bmm(f.softmax(affinity_mat, 2).transpose(1, 2), encoded_x)
+            conditioned_y = torch.bmm(f.softmax(affinity_mat.transpose(1, 2), 2).transpose(1, 2), encoded_y)
 
         # step6: generate input of the biattentive encoders [batch_size x max_length x hidden_size * num_directions * 3]
         biatt_input_x = torch.cat(
@@ -92,11 +96,18 @@ class BCN(nn.Module):
 
         # step8: compute self-attentive pooling features
         att_weights_x = self.ffnn(biatt_x.view(-1, biatt_x.size(2))).squeeze(1)
-        att_weights_x = f.softmax(att_weights_x.view(*biatt_x.size()[:-1]), 1)
- #       att_weights_x = f.softmax(att_weights_x.view(*biatt_x.size()[:-1]))
+        if PC:
+            att_weights_x = f.softmax(att_weights_x.view(*biatt_x.size()[:-1]))
+        else:
+            att_weights_x = f.softmax(att_weights_x.view(*biatt_x.size()[:-1]), 1)
+
         att_weights_y = self.ffnn(biatt_y.view(-1, biatt_y.size(2))).squeeze(1)
-        att_weights_y = f.softmax(att_weights_y.view(*biatt_y.size()[:-1]), 1)
-  #      att_weights_y = f.softmax(att_weights_y.view(*biatt_y.size()[:-1]))
+
+        if PC:
+            att_weights_y = f.softmax(att_weights_y.view(*biatt_y.size()[:-1]))
+        else:
+            att_weights_y = f.softmax(att_weights_y.view(*biatt_y.size()[:-1]), 1)
+
         self_att_x = torch.bmm(biatt_x.transpose(1, 2), att_weights_x.unsqueeze(2)).squeeze(2)
         self_att_y = torch.bmm(biatt_y.transpose(1, 2), att_weights_y.unsqueeze(2)).squeeze(2)
 

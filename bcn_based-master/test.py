@@ -10,6 +10,7 @@ import torch, helper, util, os, numpy, data
 from model import BCN
 from sklearn.metrics import f1_score
 
+
 args = util.get_args()
 # Set the random seed manually for reproducibility.
 numpy.random.seed(args.seed)
@@ -40,7 +41,10 @@ def evaluate(model, batches, dictionary, outfile=None):
         else:
             y_preds.extend(preds.data.cpu().tolist())
             y_true.extend(test_labels.data.cpu().tolist())
+            p = preds.view(test_labels.size()).data
             n_correct += (preds.view(test_labels.size()).data == test_labels.data).sum()
+            #n_same = (numpy.array(y_preds) == numpy.array(y_true)).sum()
+#            n_correct += n_same
             n_total += len(batches[batch_no])
 
     if outfile:
@@ -58,7 +62,8 @@ if __name__ == "__main__":
     dictionary = helper.load_object(args.save_path + 'dictionary.p')
     embeddings_index = helper.load_word_embeddings(args.word_vectors_directory, args.word_vectors_file,
                                                    dictionary.word2idx)
-    model = BCN(dictionary, embeddings_index, class_distributions=None, args)
+    class_distributions=None
+    model = BCN(dictionary, embeddings_index, class_distributions, args)
     if args.cuda and torch.cuda.is_available():
         torch.cuda.set_device(args.gpu)
         model = model.cuda()
@@ -68,11 +73,11 @@ if __name__ == "__main__":
     task_names = ['snli', 'multinli'] if args.task == 'allnli' else [args.task]
     for task in task_names:
         test_corpus = data.Corpus(args.tokenize)
-        if 'yelp' in args.task:
+        if 'imdb' in args.task:
             ###############################################################################
             # Load Learning to Skim paper's Pickle file
             ###############################################################################
-            train_d, dev_d, test_d = helper.get_splited_imdb_data(args.save_path+'data/'+'imdb.p')
+            train_d, dev_d, test_d = helper.get_splited_imdb_data(args.save_path + 'data/' + 'imdb.p')
             test_corpus.parse(test_d, task, args.max_example)
 
         elif task == 'multinli' and args.test != 'train':

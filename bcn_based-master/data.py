@@ -99,8 +99,10 @@ class Corpus(object):
                 for line in f:
                     tokens = line.strip().split('\t')
                     instance = Instance()
-                    instance.add_sentence(tokens[0], self.tokenize, 1)
-                    instance.add_sentence(tokens[1], self.tokenize, 2)
+                    if task_name != 'yelp':
+                        instance.add_sentence(tokens[0], self.tokenize, 1)
+                        instance.add_sentence(tokens[1], self.tokenize, 2)
+
                     if task_name == 'quora':
                         instance.add_label(int(tokens[2]))
                         self.add_to_distribution(int(tokens[2]))
@@ -115,7 +117,9 @@ class Corpus(object):
                             instance.add_label(2)
                             self.add_to_distribution(label_name='contradiction')
                     elif task_name == 'yelp':
-                        #print(int(tokens[0]))
+                        #duplicate the inputs for biattentive model
+                        instance.add_sentence(tokens[1], self.tokenize, 1)
+                        instance.add_sentence(tokens[1], self.tokenize, 2)
                         instance.add_label(int(tokens[0]))
                         self.add_to_distribution(label_name=int(tokens[0]))
 
