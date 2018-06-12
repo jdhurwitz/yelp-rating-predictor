@@ -14,7 +14,7 @@ def write_to_file(sp, filename, df):
 		i = 0
 		for index, row in df.iterrows():
 			i+=1
-			label = str(int(row['stars']))
+			label = str(int(row['stars']) - 1) #shift down
 			review = row['text']
 			if label=='' or review == '':
 				print(label, review)
