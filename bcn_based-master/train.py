@@ -11,6 +11,7 @@ import time, helper, torch
 import torch.nn as nn
 from torch.nn.utils import clip_grad_norm
 import numpy as np
+import operator
 
 
 class Train:
@@ -24,11 +25,15 @@ class Train:
         #weighting
         if self.config.class_weight:
             train_dist = model.class_distributions['train']
-            #invert
-            train_dist = [1/val for key, val in train_dist.items()]
-            train_dist = np.array(train_dist)
+            #dictionary is unordered, need to sort
 
-            weights = torch.from_numpy(train_dist)
+            sorted_by_class = sorted(train_dist.items(), key=operator.itemgetter(0))
+
+            train_weights = [1/val[1] for val in sorted_by_class]
+            train_weights = np.array(train_weights)
+            print("Training with weighted distribution: ", train_weights)
+
+            weights = torch.from_numpy(train_weights)
             self.criterion = nn.CrossEntropyLoss(weight=weights)
         else:
             self.criterion = nn.CrossEntropyLoss()

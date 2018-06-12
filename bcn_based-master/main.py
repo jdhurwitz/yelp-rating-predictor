@@ -74,7 +74,8 @@ if args.class_weight is True:
             )
     ) == 1: #we have all one value -> no need to weight
         args.class_weight = False
-
+    else:
+        print("using class weighting with distribution: ", class_distributions['train'])
 
 class_distributions['dev'] = dev_corpus.class_distribution
 class_distributions['test'] = test_corpus.class_distribution

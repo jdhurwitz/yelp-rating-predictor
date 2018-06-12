@@ -20,3 +20,15 @@ The data contains Yelp reviews, businesses, users, and checkins for Phoenix, AZ.
 The training data consists of a set of reviews for businesses, each with a star rating as well as information about the user, votes, and the text itself. One of the issues with the dataset is that the testing data has the actual review text removed. 
 
 As such, the training set (with the included reviews) was partitioned into a train and test set with disjoint data. The issue here is that there are limited training examples, so DL solutions don't have much to go off of. Transfer learning might be a good approach. 
+
+
+----
+Running bcn on the balanced yelp dataset yielded the following results:
+max_train_acc = 69.72%
+vocabulary size =  1001488
+data.py parse: ../data/yelp/test.txt
+dataset size =  50000
+accuracy: 64.93%
+f1: 64.72%
+
+Trained on 8 epochs with bathces of size 32.
