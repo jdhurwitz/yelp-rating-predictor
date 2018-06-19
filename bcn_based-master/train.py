@@ -30,10 +30,13 @@ class Train:
             sorted_by_class = sorted(train_dist.items(), key=operator.itemgetter(0))
 
             train_weights = [1/val[1] for val in sorted_by_class]
-            train_weights = np.array(train_weights)
+            train_weights = np.array(train_weights, dtype=np.float32)
             print("Training with weighted distribution: ", train_weights)
 
             weights = torch.from_numpy(train_weights)
+            if self.config.cuda and torch.cuda.is_available(): #unsure if necessary bc of criterion cuda call
+                weights = weights.cuda()
+
             self.criterion = nn.CrossEntropyLoss(weight=weights)
         else:
             self.criterion = nn.CrossEntropyLoss()

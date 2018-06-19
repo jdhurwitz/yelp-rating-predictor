@@ -6,14 +6,15 @@
 # File Description: This script tests classification accuracy.
 ###############################################################################
 
-import torch, helper, util, os, numpy, data
+import torch, helper, util, os, data
+import np as np
 from model import BCN
-from sklearn.metrics import f1_score
+from sklearn.metrics import f1_score, classification_report
 
 
 args = util.get_args()
 # Set the random seed manually for reproducibility.
-numpy.random.seed(args.seed)
+np.random.seed(args.seed)
 torch.manual_seed(args.seed)
 
 
@@ -43,10 +44,11 @@ def evaluate(model, batches, dictionary, outfile=None):
             y_true.extend(test_labels.data.cpu().tolist())
             p = preds.view(test_labels.size()).data
             n_correct += (preds.view(test_labels.size()).data == test_labels.data).sum()
-            #n_same = (numpy.array(y_preds) == numpy.array(y_true)).sum()
+            #n_same = (np.array(y_preds) == np.array(y_true)).sum()
 #            n_correct += n_same
             n_total += len(batches[batch_no])
 
+    clf_report = classification_report(np.array(y_true), np.array(y_preds))
     if outfile:
         target_names = ['entailment', 'neutral', 'contradiction']
         with open(outfile, 'w') as f:
@@ -54,8 +56,8 @@ def evaluate(model, batches, dictionary, outfile=None):
             for item in output:
                 f.write(str(item[0]) + ',' + target_names[item[1]] + '\n')
     else:
-        return 100. * n_correct / n_total, 100. * f1_score(numpy.asarray(y_true), numpy.asarray(y_preds),
-                                                           average='weighted')
+        return 100. * n_correct / n_total, 100. * f1_score(np.asarray(y_true), np.asarray(y_preds),
+                                                           average='weighted'), clf_report
 
 
 if __name__ == "__main__":
@@ -95,6 +97,6 @@ if __name__ == "__main__":
             test_corpus.parse(args.data + task + '/' + args.test + '.txt', task, args.max_example)
         print('dataset size = ', len(test_corpus.data))
         test_batches = helper.batchify(test_corpus.data, args.batch_size)
-        test_accuracy, test_f1 = evaluate(model, test_batches, dictionary)
+        test_accuracy, test_f1, classification_report = evaluate(model, test_batches, dictionary)
         print('accuracy: %.2f%%' % test_accuracy)
         print('f1: %.2f%%' % test_f1)

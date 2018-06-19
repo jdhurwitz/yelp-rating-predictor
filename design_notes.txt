@@ -31,4 +31,46 @@ dataset size =  50000
 accuracy: 64.93%
 f1: 64.72%
 
-Trained on 8 epochs with bathces of size 32.
+Trained on 8 epochs with batches of size 32.
+
+----
+6/13  meeting with Wasi
+
+-Compute the precision and recall for each class 
+-Which class is the performance poorest for? What kind of reviews are being misclassified?
+
+
+Super simple baselines: non-neural (SVM/RF)
+M1: word embedding + FF
+M2: word embedding + LSTM
+M3: word embedding + BCN
+
+-Compute the average side of a review
+EX: Here is an interesting test example. LSTM incorrectly classifies this, but BCN correctly classifies it. Why?
+->KW will be interested in seeing error analysis
+
+-It's possible that BCN cannot correctly classify because we might need more information. Hand-crafted features or other features.
+-In transfer learning we are showing the model some domain data. For example, Rizwan's yelp reviews might be talking about aspects of food, restaurants, etc. My dataset might be talking about something else even though it's yelp data. If you retrain the model on my dataset, the chances of predicting the correct labels for my dataset should increase. Should observe some improvement compared to the pre-trained (Rizwan data) model.
+
+-One possible thing is to split each paragraph into a set of sentences. Instead of considering it as a sequence of word, we can try to come up with a sentence representation. Get the review representation based on the sentence representation.
+-Some adjectives are more useful, so we can use part of speech tags as a feature ("love" is a very important word)
+-Hierarchical attention (From words to sentences, sentences to paragraphs) 
+
+-Can try training the word embeddings as well
+
+Q: How to integrate the POS tags into the model?
+-Concatenate into word embedding vector
+-POS embedding layer will be initialized from a uniform distribution
+-LSTM will get a concatenated representation from word embedding layer and POS embedding layer
+[word embedding] [pos embedding]
+<concat>
+[LSTM]
+
+Q: How to deal with large vocab?
+-Cut the vocab size down by selecting top 80000-100000 words by frequency, then train the word embeddings like this.
+-If vocab size is like 700k, most of the words will be infrequent.
+-replace all unknown words with token called <unk>
+-set <unk> to be zero vector
+-Model should update the <unk> representation 
+
+
