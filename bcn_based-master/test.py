@@ -7,7 +7,7 @@
 ###############################################################################
 
 import torch, helper, util, os, data
-import np as np
+import numpy as np
 from model import BCN
 from sklearn.metrics import f1_score, classification_report
 
@@ -47,6 +47,13 @@ def evaluate(model, batches, dictionary, outfile=None):
             #n_same = (np.array(y_preds) == np.array(y_true)).sum()
 #            n_correct += n_same
             n_total += len(batches[batch_no])
+
+        if model.config.log_test:
+            sent_list = [ inst.sentence1_str for inst in batches[batch_no] ]
+            with open('test_log.txt', 'a') as f:
+                for gnd_truth, pred, sent in zip(y_true, y_preds, sent_list):
+                    f.write(str(gnd_truth) + '\t' + str(pred) + '\t' + sent + '\n')
+
 
     clf_report = classification_report(np.array(y_true), np.array(y_preds))
     if outfile:
@@ -97,6 +104,7 @@ if __name__ == "__main__":
             test_corpus.parse(args.data + task + '/' + args.test + '.txt', task, args.max_example)
         print('dataset size = ', len(test_corpus.data))
         test_batches = helper.batchify(test_corpus.data, args.batch_size)
-        test_accuracy, test_f1, classification_report = evaluate(model, test_batches, dictionary)
+        test_accuracy, test_f1, clf_report = evaluate(model, test_batches, dictionary)
         print('accuracy: %.2f%%' % test_accuracy)
         print('f1: %.2f%%' % test_f1)
+        print(clf_report)

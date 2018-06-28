@@ -54,7 +54,7 @@ def get_args():
                         help='initial learning rate')
     parser.add_argument('--max_norm', type=float, default=5.0,
                         help='gradient clipping')
-    parser.add_argument('--epochs', type=int, default=8,
+    parser.add_argument('--epochs', type=int, default=14,
                         help='upper limit of epoch')
     parser.add_argument('--early_stop', type=int, default=5,
                         help='early stopping criterion')
@@ -86,6 +86,8 @@ def get_args():
                         help='Path of GloVe word embeddings')
     parser.add_argument('--class_weight', default=False, type=lambda x: (str(x).lower() == 'true'),
                         help='Add loss weighting to imbalanced classes during training')
+    parser.add_argument('--log_test', action='store_true',
+                        help='log test example, gnd truth, and predicted value')
 
     args = parser.parse_args()
     return args

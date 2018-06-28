@@ -45,11 +45,14 @@ class Instance(object):
 
     def __init__(self):
         self.sentence1 = []
+        self.sentence1_str = ""
         self.sentence2 = []
         self.label = -1
 
+
     def add_sentence(self, sentence, tokenize, sentence_no):
         words = ['<s>'] + helper.tokenize(sentence, tokenize) + ['</s>']
+        self.sentence1_str = sentence
         if sentence_no == 1:
             self.sentence1 = words
         else:
@@ -62,6 +65,7 @@ class Instance(object):
         print (' sen 1: ', self.sentence1)
         print (' sen 2: ', self.sentence2)
         print (' label: ', self.label)
+
 
 
 class Corpus(object):

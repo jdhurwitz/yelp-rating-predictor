@@ -28,8 +28,14 @@ class Train:
             #dictionary is unordered, need to sort
 
             sorted_by_class = sorted(train_dist.items(), key=operator.itemgetter(0))
+            total_examples = np.sum(sorted_by_class)
 
-            train_weights = [1/val[1] for val in sorted_by_class]
+            #train_weights = [1/val[1] for val in sorted_by_class]
+            train_weights = []
+            for class_idx, class_count in sorted_by_class:
+                p_prime = 1 - class_count/total_examples #inverse probability
+                train_weights.append(p_prime)
+
             train_weights = np.array(train_weights, dtype=np.float32)
             print("Training with weighted distribution: ", train_weights)
 
