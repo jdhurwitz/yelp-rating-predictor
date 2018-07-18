@@ -9,8 +9,47 @@
 
 
 import os, helper, json
+from nltk import pos_tag
 from collections import Counter
 
+pos_to_idx = {
+    'CC': 0,
+    'CD': 1,
+    'DT': 2,
+    'EX': 3,
+    'FW': 4,
+    'IN': 5,
+    'JJ': 6,
+    'JJR': 7,
+    'JJS': 8,
+    'LS': 9,
+    'MD': 10,
+    'NN': 11,
+    'NNS': 12,
+    'NNP': 13,
+    'NNPS': 14,
+    'PDT': 15,
+    'POS': 16,
+    'PRP': 17,
+    'PRP$': 18,
+    'RB': 19,
+    'RBR': 20,
+    'RBS': 21,
+    'RP': 22,
+    'SYM': 23,
+    'TO': 24,
+    'UH': 25,
+    'VB': 26,
+    'VBD': 27,
+    'VBG': 28,
+    'VBN': 29,
+    'VBP': 30,
+    'VBZ': 31,
+    'WDT': 32,
+    'WP': 33,
+    'WP$': 34,
+    'WRB': 35
+}
 
 class Dictionary(object):
     """Dictionary class that stores all words of train/dev corpus."""
@@ -48,6 +87,7 @@ class Instance(object):
         self.sentence1_str = ""
         self.sentence2 = []
         self.label = -1
+        self.pos_tags =  []
 
 
     def add_sentence(self, sentence, tokenize, sentence_no):
@@ -57,6 +97,15 @@ class Instance(object):
             self.sentence1 = words
         else:
             self.sentence2 = words
+
+    def add_pos_tags(self, sentence, tokenize):
+        """We assume that the raw sentence will be passed in -> this is for self-attentive network
+        :param sentence: raw sentence not tokenized
+        :return: void
+        """
+        tokenized_sent = helper.tokenize(sentence, tokenize)
+        pos_tags = pos_tag(tokenized_sent)
+        self.pos_tags = [tag[1] for tag in pos_tags]
 
     def add_label(self, label):
         self.label = label
@@ -124,6 +173,8 @@ class Corpus(object):
                         #duplicate the inputs for biattentive model
                         instance.add_sentence(tokens[1], self.tokenize, 1)
                         instance.add_sentence(tokens[1], self.tokenize, 2)
+
+                        instance.add_pos_tags(tokens[1], self.tokenize)
                         instance.add_label(int(tokens[0]))
                         self.add_to_distribution(label_name=int(tokens[0]))
 

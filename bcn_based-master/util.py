@@ -88,6 +88,8 @@ def get_args():
                         help='Add loss weighting to imbalanced classes during training')
     parser.add_argument('--log_test', action='store_true',
                         help='log test example, gnd truth, and predicted value')
+    parser.add_argument('--pos', action='store_true',
+                        help='use POS tags as a feature')
 
     args = parser.parse_args()
     return args

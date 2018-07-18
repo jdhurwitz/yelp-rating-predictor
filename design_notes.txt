@@ -45,7 +45,7 @@ M1: word embedding + FF
 M2: word embedding + LSTM
 M3: word embedding + BCN
 
--Compute the average side of a review
+-Compute the average size of a review
 EX: Here is an interesting test example. LSTM incorrectly classifies this, but BCN correctly classifies it. Why?
 ->KW will be interested in seeing error analysis
 
@@ -129,6 +129,66 @@ f1: 60.11%
           4       0.69      0.67      0.68     11553
 
 avg / total       0.60      0.61      0.60     34486
+
+-----
+6/26 test results
+
+Limited the vocab size to the 80k most frequent words. Trained my own word embeddings.
+
+1) Trained on balanced data and tested on imbalanced
+maxout num classes:  5
+BCN init num_units:  5
+vocabulary size =  80001
+data.py parse: ../data/yelp/test.txt
+dataset size =  34486
+accuracy: 61.50%
+f1: 61.95%
+             precision    recall  f1-score   support
+
+          0       0.74      0.64      0.68      2706
+          1       0.48      0.69      0.56      3167
+          2       0.48      0.55      0.51      5151
+          3       0.60      0.62      0.61     11909
+          4       0.76      0.61      0.68     11553
+
+avg / total       0.63      0.62      0.62     34486
+
+
+2) Trained on imbalanced data and weighted loss
+maxout num classes:  5
+BCN init num_units:  5
+vocabulary size =  80001
+data.py parse: ../data/yelp/test.txt
+dataset size =  34486
+accuracy: 60.38%
+f1: 59.26%
+             precision    recall  f1-score   support
+
+          0       0.69      0.64      0.67      2706
+          1       0.60      0.17      0.27      3167
+          2       0.47      0.45      0.46      5151
+          3       0.56      0.72      0.63     11909
+          4       0.72      0.66      0.69     11553
+
+avg / total       0.61      0.60      0.59     34486
+
+3) Trained on imbalanced data and unweighted loss
+maxout num classes:  5
+BCN init num_units:  5
+vocabulary size =  80001
+data.py parse: ../data/yelp/test.txt
+dataset size =  34486
+accuracy: 53.20%
+f1: 53.08%
+             precision    recall  f1-score   support
+
+          0       0.57      0.58      0.58      2706
+          1       0.36      0.42      0.39      3167
+          2       0.38      0.47      0.42      5151
+          3       0.55      0.42      0.48     11909
+          4       0.64      0.69      0.66     11553
+
+avg / total       0.54      0.53      0.53     34486
 
 
 

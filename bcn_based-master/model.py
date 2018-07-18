@@ -12,8 +12,11 @@ import torch.nn as nn
 import torch.nn.functional as f
 from collections import OrderedDict
 from nn_layer import EmbeddingLayer, Encoder, MaxoutNetwork
+from data import pos_to_idx
 
 PC = False
+
+POS_EMBEDDING_DIM = 50
 
 # details of BCN can be found in the paper, "Learned in Translation: Contextualized Word Vectors"
 class BCN(nn.Module):
@@ -27,13 +30,24 @@ class BCN(nn.Module):
         self.dictionary = dictionary
         self.class_distributions = class_distributions #dict of class counts
 
+
+        #Model definition
+        if self.config.pos:
+            self.embedding_pos = EmbeddingLayer(len(pos_to_idx), POS_EMBEDDING_DIM, self.config.emtraining, self.config)
+
         self.embedding = EmbeddingLayer(len(self.dictionary), self.config.emsize, self.config.emtraining, self.config)
         self.embedding.init_embedding_weights(self.dictionary, embedding_index, self.config.emsize)
 
-        self.relu_network = nn.Sequential(OrderedDict([
-            ('dense1', nn.Linear(self.config.emsize, self.config.nhid)),
-            ('nonlinearity', nn.ReLU())
-        ]))
+        if self.config.pos:
+            self.relu_network = nn.Sequential(OrderedDict([
+                ('dense1', nn.Linear(self.config.emsize + POS_EMBEDDING_DIM, self.config.nhid)),
+                ('nonlinearity', nn.ReLU())
+            ]))
+        else:
+            self.relu_network = nn.Sequential(OrderedDict([
+                ('dense1', nn.Linear(self.config.emsize, self.config.nhid)),
+                ('nonlinearity', nn.ReLU())
+            ]))
 
         self.encoder = Encoder(self.config.nhid, self.config.nhid, self.config.bidirection, self.config.nlayers,
                                self.config)
@@ -47,7 +61,7 @@ class BCN(nn.Module):
                                             num_units=self.config.num_units)
         print("BCN init num_units: ", self.config.num_class)
 
-    def forward(self, sentence1, sentence1_len, sentence2, sentence2_len):
+    def forward(self, sentence1, sentence1_len, sentence2, sentence2_len, pos_sent1=None, pos_sent2=None):
         """
         Forward computation of the biattentive classification network.
         Returns classification scores for a batch of sentence pairs.
@@ -58,8 +72,17 @@ class BCN(nn.Module):
         :return: classification scores over batch [batch_size x num_classes]
         """
         # step1: embed the words into vectors [batch_size x max_length x emsize]
+
+
         embedded_x = self.embedding(sentence1)
         embedded_y = self.embedding(sentence2)
+
+        if self.config.pos and pos_sent1 is not None and pos_sent2 is not None:
+            embedded_pos_x = self.embedding_pos(pos_sent1)
+            embedded_pos_y = self.embedding_pos(pos_sent2)
+
+            embedded_x = torch.cat((embedded_x, embedded_pos_x), 2)
+            embedded_y = torch.cat((embedded_y, embedded_pos_y), 2)
 
         # step2: pass the embedded words through the ReLU network [batch_size x max_length x hidden_size]
         embedded_x = self.relu_network(embedded_x)

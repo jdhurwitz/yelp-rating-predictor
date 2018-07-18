@@ -19,6 +19,9 @@ mpl.use('Agg')
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 
+#get the pos dictionary
+from data import pos_to_idx
+
 args = util.get_args()
 
 
@@ -222,7 +225,7 @@ def sequence_to_tensor(sequence, max_sent_length, dictionary):
     return sen_rep
 
 
-def batch_to_tensors(batch, dictionary, iseval=False):
+def batch_to_tensors(batch, dictionary, iseval=False, pos=False):
     """Convert a list of sequences to a list of tensors."""
     max_sent_length1, max_sent_length2 = 0, 0
     for item in batch:
@@ -235,18 +238,30 @@ def batch_to_tensors(batch, dictionary, iseval=False):
     sent_len1 = np.zeros(len(batch), dtype=np.int)
     all_sentences2 = torch.LongTensor(len(batch), max_sent_length2)
     sent_len2 = np.zeros(len(batch), dtype=np.int)
+
+
+    all_pos1 = torch.LongTensor(len(batch), max_sent_length1)
+    all_pos2 = torch.LongTensor(len(batch), max_sent_length2)
+
     labels = torch.LongTensor(len(batch))
     for i in range(len(batch)):
         sent_len1[i], sent_len2[i] = len(batch[i].sentence1), len(batch[i].sentence2)
         all_sentences1[i] = sequence_to_tensor(batch[i].sentence1, max_sent_length1, dictionary)
         all_sentences2[i] = sequence_to_tensor(batch[i].sentence2, max_sent_length2, dictionary)
+
+        if pos: #conditional for efficiency
+            all_pos1[i] = sequence_to_tensor(batch[i].pos_tags, max_sent_length1, pos_to_idx)
+            all_pos2[i] = sequence_to_tensor(batch[i].pos_tags, max_sent_length2, pos_to_idx)
+
         labels[i] = batch[i].label
 
     if iseval:
-        return Variable(all_sentences1, volatile=True), sent_len1, Variable(all_sentences2, volatile=True), sent_len2, \
-               Variable(labels, volatile=True)
+        return Variable(all_sentences1, volatile=True), sent_len1, Variable(all_sentences2,volatile=True), sent_len2, \
+                   Variable(labels, volatile=True), Variable(all_pos1, volatile=True), Variable(all_pos2, volatile=True)
+
     else:
-        return Variable(all_sentences1), sent_len1, Variable(all_sentences2), sent_len2, Variable(labels)
+        return Variable(all_sentences1), sent_len1, Variable(all_sentences2), sent_len2, Variable(labels), Variable(all_pos1), Variable(all_pos2)
+
 
 
 def get_splited_imdb_data(file_name, data_name='IMDB'):
