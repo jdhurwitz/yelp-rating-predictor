@@ -224,6 +224,12 @@ def sequence_to_tensor(sequence, max_sent_length, dictionary):
             sen_rep[i] = dictionary.word2idx[sequence[i]]
     return sen_rep
 
+def pos_to_tensor(sequence, max_sent_length, dictionary):
+    tensor_rep = torch.LongTensor(max_sent_length).zero_()
+    for i in range(len(sequence)):
+        if sequence[i] in pos_to_idx:
+            tensor_rep[i] = pos_to_idx[sequence[i]]
+    return tensor_rep
 
 def batch_to_tensors(batch, dictionary, iseval=False, pos=False):
     """Convert a list of sequences to a list of tensors."""
@@ -250,8 +256,8 @@ def batch_to_tensors(batch, dictionary, iseval=False, pos=False):
         all_sentences2[i] = sequence_to_tensor(batch[i].sentence2, max_sent_length2, dictionary)
 
         if pos: #conditional for efficiency
-            all_pos1[i] = sequence_to_tensor(batch[i].pos_tags, max_sent_length1, pos_to_idx)
-            all_pos2[i] = sequence_to_tensor(batch[i].pos_tags, max_sent_length2, pos_to_idx)
+            all_pos1[i] = pos_to_tensor(batch[i].pos_tags, max_sent_length1, pos_to_idx)
+            all_pos2[i] = pos_to_tensor(batch[i].pos_tags, max_sent_length2, pos_to_idx)
 
         labels[i] = batch[i].label
 

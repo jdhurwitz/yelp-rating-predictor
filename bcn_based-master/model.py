@@ -14,7 +14,7 @@ from collections import OrderedDict
 from nn_layer import EmbeddingLayer, Encoder, MaxoutNetwork
 from data import pos_to_idx
 
-PC = False
+PC = True
 
 POS_EMBEDDING_DIM = 50
 
@@ -33,7 +33,8 @@ class BCN(nn.Module):
 
         #Model definition
         if self.config.pos:
-            self.embedding_pos = EmbeddingLayer(len(pos_to_idx), POS_EMBEDDING_DIM, self.config.emtraining, self.config)
+            self.embedding_pos = EmbeddingLayer(len(pos_to_idx), POS_EMBEDDING_DIM, True, self.config)
+            self.embedding_pos.init_pos_weights(pos_to_idx, POS_EMBEDDING_DIM)
 
         self.embedding = EmbeddingLayer(len(self.dictionary), self.config.emsize, self.config.emtraining, self.config)
         self.embedding.init_embedding_weights(self.dictionary, embedding_index, self.config.emsize)

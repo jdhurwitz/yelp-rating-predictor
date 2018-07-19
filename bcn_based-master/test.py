@@ -25,15 +25,21 @@ def evaluate(model, batches, dictionary, outfile=None):
     n_correct, n_total = 0, 0
     y_preds, y_true, output = [], [], []
     for batch_no in range(len(batches)):
-        test_sentences1, sent_len1, test_sentences2, sent_len2, test_labels = helper.batch_to_tensors(batches[batch_no],
-                                                                                                      dictionary, True)
+        test_sentences1, sent_len1, test_sentences2, sent_len2, test_labels, pos_sentences1, pos_sentences2 = helper.batch_to_tensors(batches[batch_no],
+                                                                                                      dictionary, iseval=True, pos=model.config.pos)
         if args.cuda and torch.cuda.is_available():
             test_sentences1 = test_sentences1.cuda()
             test_sentences2 = test_sentences2.cuda()
+            pos_sentences1 = pos_sentences1.cuda()
+            pos_sentences2 = pos_sentences2.cuda()
+
             test_labels = test_labels.cuda()
         assert test_sentences1.size(0) == test_sentences1.size(0)
 
-        score = model(test_sentences1, sent_len1, test_sentences2, sent_len2)
+        if model.config.pos:
+            score = model(test_sentences1, sent_len1, test_sentences2, sent_len2, pos_sentences1, pos_sentences2)
+        else:
+            score = model(test_sentences1, sent_len1, test_sentences2, sent_len2)
         preds = torch.max(score, 1)[1]
         if outfile:
             predictions = preds.data.cpu().tolist()

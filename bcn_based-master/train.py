@@ -119,7 +119,7 @@ class Train:
             # Clearing out all previous gradient computations.
             self.optimizer.zero_grad()
             train_sentences1, sent_len1, train_sentences2, sent_len2, train_labels, pos_sentences1, pos_sentences2 = helper.batch_to_tensors(
-                train_batches[batch_no - 1], self.dictionary)
+                train_batches[batch_no - 1], self.dictionary, pos=self.config.pos) #train with POS
             if self.config.cuda and torch.cuda.is_available():
                 train_sentences1 = train_sentences1.cuda()
                 train_sentences2 = train_sentences2.cuda()
@@ -171,16 +171,21 @@ class Train:
         num_batches = len(dev_batches)
         n_correct, n_total = 0, 0
         for batch_no in range(1, num_batches + 1):
-            dev_sentences1, sent_len1, dev_sentences2, sent_len2, dev_labels = helper.batch_to_tensors(
-                dev_batches[batch_no - 1], self.dictionary, True)
+            dev_sentences1, sent_len1, dev_sentences2, sent_len2, dev_labels, pos_sentences1, pos_sentences2 = helper.batch_to_tensors(
+                dev_batches[batch_no - 1], self.dictionary, iseval=True, pos=self.config.pos)
             if self.config.cuda and torch.cuda.is_available():
                 dev_sentences1 = dev_sentences1.cuda()
                 dev_sentences2 = dev_sentences2.cuda()
+                pos_sentences1 = pos_sentences1.cuda()
+                pos_sentences2 = pos_sentences2.cuda()
                 dev_labels = dev_labels.cuda()
 
             assert dev_sentences1.size(0) == dev_sentences2.size(0)
 
-            score = self.model(dev_sentences1, sent_len1, dev_sentences2, sent_len2)
+            if self.config.pos:
+                score = self.model(dev_sentences1, sent_len1, dev_sentences2, sent_len2, pos_sentences1, pos_sentences2)
+            else:
+                score = self.model(dev_sentences1, sent_len1, dev_sentences2, sent_len2)
             n_correct += (torch.max(score, 1)[1].view(dev_labels.size()).data == dev_labels.data).sum()
             n_total += len(dev_batches[batch_no - 1])
 

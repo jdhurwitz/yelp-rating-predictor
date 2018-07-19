@@ -34,6 +34,17 @@ class EmbeddingLayer(nn.Module):
         """"Defines the forward computation of the embedding layer."""
         return self.embedding(input_variable)
 
+    def init_pos_weights(self, dictionary, embedding_dim):
+        vocab_size = len(dictionary)
+        stddev = 1/np.sqrt(embedding_dim)
+       #for i in range(vocab_size):
+        weights = np.random.normal(0, scale=stddev, size=[vocab_size, embedding_dim])
+        weights = weights.astype(np.float32)
+        if isinstance(self.embedding, nn.Sequential):
+            self.embedding[0].weight.data = torch.from_numpy(weights)
+        else:
+            self.embedding.weight.data = torch.from_numpy(weights)
+
     def init_embedding_weights(self, dictionary, embeddings_index, embedding_dim):
         """Initialize weight parameters for the embedding layer."""
         pretrained_weight = np.empty([len(dictionary), embedding_dim], dtype=float)

@@ -90,6 +90,8 @@ def get_args():
                         help='log test example, gnd truth, and predicted value')
     parser.add_argument('--pos', action='store_true',
                         help='use POS tags as a feature')
+    parser.add_argument('--limit', action='store_true',
+                        help='limit size of all sets for debug')
 
     args = parser.parse_args()
     return args

@@ -54,6 +54,9 @@ for task in task_names:
         if task == 'multinli':
             dev_corpus.parse(args.data + task + '/dev_matched.txt', task, args.tokenize)
             test_corpus.parse(args.data + task + '/test_matched.txt', task, args.tokenize)
+        elif args.limit:
+            dev_corpus.parse(args.data + task + '/dev.txt', task, args.max_example)
+            test_corpus.parse(args.data + task + '/test.txt', task, args.max_example)
         else:
             dev_corpus.parse(args.data + task + '/dev.txt', task, args.tokenize)
             test_corpus.parse(args.data + task + '/test.txt', task, args.tokenize)

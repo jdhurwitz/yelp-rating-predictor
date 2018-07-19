@@ -48,7 +48,8 @@ pos_to_idx = {
     'WDT': 32,
     'WP': 33,
     'WP$': 34,
-    'WRB': 35
+    'WRB': 35,
+    'UNK': 36
 }
 
 class Dictionary(object):
@@ -106,6 +107,9 @@ class Instance(object):
         tokenized_sent = helper.tokenize(sentence, tokenize)
         pos_tags = pos_tag(tokenized_sent)
         self.pos_tags = [tag[1] for tag in pos_tags]
+        for i in range(len(self.pos_tags)):
+            if self.pos_tags[i] not in pos_to_idx:
+                self.pos_tags[i] = 'UNK'
 
     def add_label(self, label):
         self.label = label
@@ -149,6 +153,7 @@ class Corpus(object):
             print("data.py parse:", in_file)
             assert os.path.exists(in_file)
             with open(in_file, 'r') as f:
+                i = 0
                 for line in f:
                     tokens = line.strip().split('\t')
                     instance = Instance()
@@ -173,6 +178,7 @@ class Corpus(object):
                         #duplicate the inputs for biattentive model
                         instance.add_sentence(tokens[1], self.tokenize, 1)
                         instance.add_sentence(tokens[1], self.tokenize, 2)
+#                        print(i)
 
                         instance.add_pos_tags(tokens[1], self.tokenize)
                         instance.add_label(int(tokens[0]))
@@ -181,3 +187,4 @@ class Corpus(object):
                     self.data.append(instance)
                     if len(self.data) == max_example:
                         break
+                    i+=1
