@@ -14,7 +14,7 @@ from collections import OrderedDict
 from nn_layer import EmbeddingLayer, Encoder, MaxoutNetwork
 from data import pos_to_idx
 
-PC = True
+PC = False
 
 POS_EMBEDDING_DIM = 50
 

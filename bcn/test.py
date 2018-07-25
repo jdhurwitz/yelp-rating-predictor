@@ -9,7 +9,7 @@
 import torch, helper, util, os, data
 import numpy as np
 from model import BCN
-from sklearn.metrics import f1_score, classification_report
+from sklearn.metrics import f1_score, classification_report, confusion_matrix
 
 
 args = util.get_args()
@@ -62,6 +62,8 @@ def evaluate(model, batches, dictionary, outfile=None):
 
 
     clf_report = classification_report(np.array(y_true), np.array(y_preds))
+    cnf_matrix = confusion_matrix(np.array(y_true), np.array(y_preds), labels=[0,1,2,3,4])
+
     if outfile:
         target_names = ['entailment', 'neutral', 'contradiction']
         with open(outfile, 'w') as f:
@@ -70,7 +72,7 @@ def evaluate(model, batches, dictionary, outfile=None):
                 f.write(str(item[0]) + ',' + target_names[item[1]] + '\n')
     else:
         return 100. * n_correct / n_total, 100. * f1_score(np.asarray(y_true), np.asarray(y_preds),
-                                                           average='weighted'), clf_report
+                                                           average='weighted'), clf_report, cnf_matrix
 
 
 if __name__ == "__main__":
@@ -110,7 +112,8 @@ if __name__ == "__main__":
             test_corpus.parse(args.data + task + '/' + args.test + '.txt', task, args.max_example)
         print('dataset size = ', len(test_corpus.data))
         test_batches = helper.batchify(test_corpus.data, args.batch_size)
-        test_accuracy, test_f1, clf_report = evaluate(model, test_batches, dictionary)
+        test_accuracy, test_f1, clf_report, cnf_matrix = evaluate(model, test_batches, dictionary)
         print('accuracy: %.2f%%' % test_accuracy)
         print('f1: %.2f%%' % test_f1)
         print(clf_report)
+        print(cnf_matrix)
