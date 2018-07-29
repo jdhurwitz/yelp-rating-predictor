@@ -84,7 +84,7 @@ def get_args():
                         help='GloVe word embedding file name')
     parser.add_argument('--word_vectors_directory', type=str, default='../glove/',
                         help='Path of GloVe word embeddings')
-    parser.add_argument('--class_weight', default=False, type=lambda x: (str(x).lower() == 'true'),
+    parser.add_argument('--class_weight', action='store_true',
                         help='Add loss weighting to imbalanced classes during training')
     parser.add_argument('--log_test', action='store_true',
                         help='log test example, gnd truth, and predicted value')

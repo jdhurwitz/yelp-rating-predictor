@@ -1,0 +1,90 @@
+hurwitz@nlp9
+: /home/hurwitz/yelp-rating-predictor/bcn ; cat run_model2.sh
+#!/bin/bash
+
+CUDA_VISIBLE_DEVICES=1 python main.py --cuda --gpu 0 --task yelp --data '../data/yelp/gm_data/' --save_path '../model2_output/' --emtraining
+hurwitz@nlp9
+: /home/hurwitz/yelp-rating-predictor/bcn ; ./run_model2.sh
+CUDA available
+
+command-line params : ['--cuda', '--gpu', '0', '--task', 'yelp', '--data', '../data/yelp/gm_data/', '--save_path', '../model2_output/', '--emtraining']
+
+Namespace(batch_size=32, bidirection=True, class_weight=False, cuda=True, data='../data/yelp/gm_data/', dropout=0.2, early_stop=5, emsize=300, emtraining=True, epochs=14, eval_batch_size=256, ffnn_dim=300, gpu=0, limit=False, log_test=False, lr=0.001, lr_decay=0.99, lrshrink=5, max_example=-1, max_norm=5.0, max_words=-1, minlr=1e-05, model='LSTM', nhid=300, nlayers=1, num_class=5, num_units=5, optimizer='adam', plot_every=100, pos=False, print_every=100, resume='', save_path='../model2_output/', seed=1111, start_epoch=0, task='yelp', test='test', tokenize=False, word_vectors_directory='../glove/', word_vectors_file='glove.6B.300d.txt')
+
+data.py parse: ../data/yelp/gm_data/yelp/train.txt
+data.py parse: ../data/yelp/gm_data/yelp/dev.txt
+data.py parse: ../data/yelp/gm_data/yelp/test.txt
+train set size =  600000
+development set size =  50000
+test set size =  50000
+vocabulary size =  1001488
+number of OOV words =  921315
+maxout num classes:  5
+BCN init num_units:  5
+BCN(
+  (embedding): EmbeddingLayer(
+    (embedding): Sequential(
+      (embedding): Embedding(1001488, 300)
+      (dropout): Dropout(p=0.2)
+    )
+  )
+  (relu_network): Sequential(
+    (dense1): Linear(in_features=300, out_features=300, bias=True)
+    (nonlinearity): ReLU()
+  )
+  (encoder): Encoder(
+    (rnn): LSTM(300, 300, batch_first=True, dropout=0.2, bidirectional=True)
+  )
+  (biatt_encoder1): Encoder(
+    (rnn): LSTM(1800, 300, batch_first=True, dropout=0.2, bidirectional=True)
+  )
+  (biatt_encoder2): Encoder(
+    (rnn): LSTM(1800, 300, batch_first=True, dropout=0.2, bidirectional=True)
+  )
+  (ffnn): Linear(in_features=600, out_features=1, bias=True)
+  (maxout_network): MaxoutNetwork(
+    (fc1_list): ModuleList(
+      (0): Linear(in_features=4800, out_features=1200, bias=True)
+      (1): Linear(in_features=4800, out_features=1200, bias=True)
+      (2): Linear(in_features=4800, out_features=1200, bias=True)
+      (3): Linear(in_features=4800, out_features=1200, bias=True)
+      (4): Linear(in_features=4800, out_features=1200, bias=True)
+    )
+    (fc2_list): ModuleList(
+      (0): Linear(in_features=1200, out_features=600, bias=True)
+      (1): Linear(in_features=1200, out_features=600, bias=True)
+      (2): Linear(in_features=1200, out_features=600, bias=True)
+      (3): Linear(in_features=1200, out_features=600, bias=True)
+      (4): Linear(in_features=1200, out_features=600, bias=True)
+    )
+    (fc3_list): ModuleList(
+      (0): Linear(in_features=600, out_features=5, bias=True)
+      (1): Linear(in_features=600, out_features=5, bias=True)
+      (2): Linear(in_features=600, out_features=5, bias=True)
+      (3): Linear(in_features=600, out_features=5, bias=True)
+      (4): Linear(in_features=600, out_features=5, bias=True)
+    )
+    (batch_norm1): BatchNorm1d(1200, eps=1e-05, momentum=0.1, affine=True)
+    (batch_norm2): BatchNorm1d(600, eps=1e-05, momentum=0.1, affine=True)
+  )
+)
+number of trainable parameters =  344499326
+
+TRAINING : Epoch 1
+number of train batches =  18750
+THCudaCheck FAIL file=/opt/conda/conda-bld/pytorch_1518244507981/work/torch/lib/THC/generic/THCStorage.cu line=58 error=2 : out of memory
+Traceback (most recent call last):
+  File "main.py", line 130, in <module>
+    train.train_epochs(train_corpus, dev_corpus, test_corpus, args.start_epoch, args.epochs)
+  File "/home/hurwitz/yelp-rating-predictor/bcn/train.py", line 69, in train_epochs
+    self.train(train_corpus)
+  File "/home/hurwitz/yelp-rating-predictor/bcn/train.py", line 143, in train
+    loss.backward()
+  File "/home/wasiahmad/software/anaconda3/lib/python3.6/site-packages/torch/autograd/variable.py", line 167, in backward
+    torch.autograd.backward(self, gradient, retain_graph, create_graph, retain_variables)
+  File "/home/wasiahmad/software/anaconda3/lib/python3.6/site-packages/torch/autograd/__init__.py", line 99, in backward
+    variables, grad_variables, retain_graph)
+RuntimeError: cuda runtime error (2) : out of memory at /opt/conda/conda-bld/pytorch_1518244507981/work/torch/lib/THC/generic/THCStorage.cu:58
+
+hurwitz@nlp9
+: /home/hurwitz/yelp-rating-predictor/bcn ; packet_write_wait: Connection to 131.179.128.39 port 22: Broken pipe
