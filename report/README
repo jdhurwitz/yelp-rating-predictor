@@ -1,0 +1,6 @@
+There's three main files for editing:
+1. main_acm.tex - header, authors, etc.
+2. pyfinder-body.tex - most of the report, your changes will most likely go here.
+3. pyfinder-bibliography-acm.bib - bibliography.
+
+DO NOT USE ANY OTHER FILES.

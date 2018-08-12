@@ -54,7 +54,7 @@ def get_args():
                         help='initial learning rate')
     parser.add_argument('--max_norm', type=float, default=5.0,
                         help='gradient clipping')
-    parser.add_argument('--epochs', type=int, default=14,
+    parser. add_argument('--epochs', type=int, default=14,
                         help='upper limit of epoch')
     parser.add_argument('--early_stop', type=int, default=5,
                         help='early stopping criterion')

@@ -1,0 +1,169 @@
+./test_model1.sh
+maxout num classes:  5
+BCN init num_units:  5
+vocabulary size =  1001488
+data.py parse: ../data/yelp/gm_data/yelp/test.txt
+dataset size =  50000
+accuracy: 64.52%
+f1: 63.96%
+             precision    recall  f1-score   support
+
+          0       0.71      0.83      0.77     10000
+          1       0.61      0.56      0.58     10000
+          2       0.62      0.51      0.56     10000
+          3       0.58      0.55      0.56     10000
+          4       0.68      0.78      0.73     10000
+
+avg / total       0.64      0.65      0.64     50000
+
+[[8296 1304  160   46  194]
+ [2668 5574 1381  205  172]
+ [ 446 2095 5109 1932  418]
+ [ 107  172 1411 5499 2811]
+ [ 120   43  220 1837 7780]]
+MSE:  0.60518
+
+
+
+
+./test_model3.sh
+maxout num classes:  5
+BCN init num_units:  5
+vocabulary size =  1001488
+data.py parse: ../data/yelp/gm_data/yelp/test.txt
+dataset size =  50000
+accuracy: 63.67%
+f1: 63.47%
+             precision    recall  f1-score   support
+
+          0       0.76      0.73      0.75     10000
+          1       0.58      0.62      0.60     10000
+          2       0.59      0.53      0.56     10000
+          3       0.57      0.53      0.55     10000
+          4       0.68      0.78      0.72     10000
+
+avg / total       0.64      0.64      0.63     50000
+
+[[7318 2325  198   40  119]
+ [1650 6198 1827  203  122]
+ [ 293 1899 5289 2050  469]
+ [ 120  223 1379 5253 3025]
+ [ 202   77  257 1685 7779]]
+MSE:  0.61558
+
+
+
+
+./test_model5.sh
+maxout num classes:  5
+BCN init num_units:  5
+vocabulary size =  80001
+data.py parse: ../data/yelp/gm_data/yelp/test.txt
+dataset size =  50000
+accuracy: 64.48%
+f1: 63.93%
+             precision    recall  f1-score   support
+
+          0       0.70      0.84      0.76     10000
+          1       0.62      0.53      0.57     10000
+          2       0.60      0.53      0.57     10000
+          3       0.58      0.56      0.57     10000
+          4       0.70      0.76      0.73     10000
+
+avg / total       0.64      0.64      0.64     50000
+
+[[8440 1198  183   27  152]
+ [2849 5265 1588  166  132]
+ [ 499 1859 5338 1947  357]
+ [ 133  141 1458 5629 2639]
+ [ 169   27  263 1975 7566]]
+MSE:  0.59912
+
+
+
+
+
+/test_model6.sh
+maxout num classes:  5
+BCN init num_units:  5
+vocabulary size =  80001
+data.py parse: ../data/yelp/gm_data/yelp/test.txt
+dataset size =  50000
+accuracy: 65.68%
+f1: 65.86%
+             precision    recall  f1-score   support
+
+          0       0.80      0.73      0.76     10000
+          1       0.57      0.69      0.62     10000
+          2       0.61      0.56      0.59     10000
+          3       0.58      0.60      0.59     10000
+          4       0.76      0.70      0.73     10000
+
+avg / total       0.66      0.66      0.66     50000
+
+[[7341 2439  120   45   55]
+ [1535 6866 1428  133   38]
+ [ 181 2384 5623 1652  160]
+ [  52  220 1758 6033 1937]
+ [  89   98  238 2599 6976]]
+MSE:  0.48682
+
+
+
+
+./test_model7.sh
+maxout num classes:  5
+BCN init num_units:  5
+vocabulary size =  80001
+data.py parse: ../data/yelp/gm_data/yelp/test.txt
+dataset size =  50000
+accuracy: 63.75%
+f1: 63.43%
+             precision    recall  f1-score   support
+
+          0       0.74      0.75      0.75     10000
+          1       0.59      0.60      0.59     10000
+          2       0.60      0.53      0.56     10000
+          3       0.57      0.52      0.54     10000
+          4       0.67      0.78      0.72     10000
+
+avg / total       0.63      0.64      0.63     50000
+
+[[7543 2090  164   50  153]
+ [1944 6049 1671  194  142]
+ [ 369 1950 5299 1913  469]
+ [ 138  187 1425 5195 3055]
+ [ 194   58  203 1757 7788]]
+MSE:  0.62386
+
+
+
+
+./test_model8.sh
+maxout num classes:  5
+BCN init num_units:  5
+vocabulary size =  80001
+data.py parse: ../data/yelp/gm_data/yelp/test.txt
+dataset size =  50000
+accuracy: 66.01%
+f1: 65.89%
+             precision    recall  f1-score   support
+
+          0       0.79      0.76      0.77     10000
+          1       0.59      0.65      0.62     10000
+          2       0.61      0.59      0.60     10000
+          3       0.60      0.53      0.56     10000
+          4       0.72      0.77      0.74     10000
+
+avg / total       0.66      0.66      0.66     50000
+
+[[7621 2111  159   29   80]
+ [1704 6538 1572  125   61]
+ [ 226 2115 5887 1522  250]
+ [  68  189 1815 5266 2662]
+ [  89   75  272 1870 7694]]
+MSE:  0.50112
+
+
+
+

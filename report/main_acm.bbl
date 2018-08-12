@@ -1,0 +1,138 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{7}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{}, \showDOI{}, and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showDOI}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showDOI #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showDOI      \undefined \def \showDOI       #1{#1}\fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       {\relax}        \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[\protect\citeauthoryear{??}{kag}{[n. d.]}]%
+        {kaggle}
+ \bibinfo{year}{[n. d.]}\natexlab{}.
+\newblock \bibinfo{title}{RecSys2013: Yelp Business Rating Prediction |
+  Kaggle}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{https://www.kaggle.com/c/yelp-recsys-2013/data}
+\showURL{%
+\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Coneau, Schwenk, LeCun, and Barrault}{Coneau
+  et~al\mbox{.}}{[n. d.]}]%
+        {coneau_schwenk_lecun_barrault}
+\bibfield{author}{\bibinfo{person}{Alexis Coneau}, \bibinfo{person}{Holger
+  Schwenk}, \bibinfo{person}{Yann LeCun}, {and} \bibinfo{person}{Loic
+  Barrault}.} \bibinfo{year}{[n. d.]}\natexlab{}.
+\newblock \bibinfo{title}{Very Deep Convolutional Networks for Text
+  Classification}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{https://arxiv.org/pdf/1606.01781.pdf}
+\showURL{%
+\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Conneau, Kiela, Schwenk, Barrault, and
+  Bordes}{Conneau et~al\mbox{.}}{[n. d.]}]%
+        {conneau_kiela_schwenk_barrault_bordes}
+\bibfield{author}{\bibinfo{person}{Alexis Conneau}, \bibinfo{person}{Douwe
+  Kiela}, \bibinfo{person}{Holger Schwenk}, \bibinfo{person}{Loic Barrault},
+  {and} \bibinfo{person}{Antoine Bordes}.} \bibinfo{year}{[n. d.]}\natexlab{}.
+\newblock \bibinfo{title}{Supervised Learning of Universal Sentence
+  Representations from Natural Language Inference Data}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{https://arxiv.org/pdf/1705.02364.pdf}
+\showURL{%
+\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Glorot and Bengio}{Glorot and Bengio}{[n.
+  d.]}]%
+        {glorot_bengio}
+\bibfield{author}{\bibinfo{person}{Xavier Glorot} {and} \bibinfo{person}{Yoshua
+  Bengio}.} \bibinfo{year}{[n. d.]}\natexlab{}.
+\newblock \bibinfo{title}{Understanding the Difficulty of Training Deep
+  Feedforward Neural Networks}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{http://proceedings.mlr.press/v9/glorot10a/glorot10a.pdf}
+\showURL{%
+\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Luca}{Luca}{2011}]%
+        {luca_2011}
+\bibfield{author}{\bibinfo{person}{Michael Luca}.}
+  \bibinfo{year}{2011}\natexlab{}.
+\newblock \bibinfo{title}{Reviews, Reputation, and Revenue: The Case of
+  Yelp.com}.
+\newblock
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Olah}{Olah}{2015}]%
+        {olah_2015}
+\bibfield{author}{\bibinfo{person}{Christopher Olah}.}
+  \bibinfo{year}{2015}\natexlab{}.
+\newblock \bibinfo{title}{Understanding LSTM Networks}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{http://colah.github.io/posts/2015-08-Understanding-LSTMs/}
+\showURL{%
+\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Pennington, Socher, and Manning}{Pennington
+  et~al\mbox{.}}{[n. d.]}]%
+        {pennington_socher_manning}
+\bibfield{author}{\bibinfo{person}{Jeffrey Pennington},
+  \bibinfo{person}{Richard Socher}, {and} \bibinfo{person}{Christopher~D.
+  Manning}.} \bibinfo{year}{[n. d.]}\natexlab{}.
+\newblock \bibinfo{title}{GloVe: Global Vectors for Word Representation}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{https://nlp.stanford.edu/pubs/glove.pdf}
+\showURL{%
+\tempurl}
+
+
+\end{thebibliography}

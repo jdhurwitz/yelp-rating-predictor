@@ -1,0 +1,240 @@
+./test_model9.sh
+maxout num classes:  5
+BCN init num_units:  5
+vocabulary size =  732097
+data.py parse: ../data/yelp/test.txt
+dataset size =  34486
+accuracy: 60.51%
+f1: 60.11%
+             precision    recall  f1-score   support
+
+          0       0.61      0.70      0.65      2706
+          1       0.51      0.38      0.44      3167
+          2       0.53      0.43      0.47      5151
+          3       0.57      0.66      0.61     11909
+          4       0.69      0.67      0.68     11553
+
+avg / total       0.60      0.61      0.60     34486
+
+[[1897  406  137  116  150]
+ [ 786 1218  749  298  116]
+ [ 185  582 2191 1929  264]
+ [ 104  125  919 7827 2934]
+ [ 122   37  167 3494 7733]]
+MSE:  0.7020820042915966
+
+
+
+./test_model10.sh
+maxout num classes:  5
+BCN init num_units:  5
+vocabulary size =  732097
+data.py parse: ../data/yelp/test.txt
+dataset size =  34486
+accuracy: 60.46%
+f1: 60.22%
+             precision    recall  f1-score   support
+
+          0       0.67      0.61      0.64      2706
+          1       0.52      0.46      0.49      3167
+          2       0.52      0.44      0.48      5151
+          3       0.58      0.62      0.60     11909
+          4       0.67      0.69      0.68     11553
+
+avg / total       0.60      0.60      0.60     34486
+
+[[1658  592  139  120  197]
+ [ 513 1453  749  296  156]
+ [ 126  628 2275 1775  347]
+ [  79  109 1046 7435 3240]
+ [  95   34  146 3250 8028]]
+MSE:  0.7138548976396218
+
+
+./test_model11.sh
+maxout num classes:  5
+BCN init num_units:  5
+vocabulary size =  732097
+data.py parse: ../data/yelp/test.txt
+dataset size =  34486
+accuracy: 59.68%
+f1: 58.74%
+             precision    recall  f1-score   support
+
+          0       0.67      0.66      0.66      2706
+          1       0.57      0.24      0.34      3167
+          2       0.47      0.46      0.47      5151
+          3       0.57      0.59      0.58     11909
+          4       0.66      0.75      0.70     11553
+
+avg / total       0.59      0.60      0.59     34486
+
+[[1779  341  348  131  107]
+ [ 623  769 1290  398   87]
+ [ 148  211 2371 2119  302]
+ [  63   20  869 6982 3975]
+ [  53    4  117 2699 8680]]
+MSE:  0.6548744418024706
+
+
+./test_model12.sh
+maxout num classes:  5
+BCN init num_units:  5
+vocabulary size =  732097
+data.py parse: ../data/yelp/test.txt
+dataset size =  34486
+accuracy: 59.05%
+f1: 58.45%
+             precision    recall  f1-score   support
+
+          0       0.62      0.65      0.63      2706
+          1       0.48      0.46      0.47      3167
+          2       0.50      0.38      0.43      5151
+          3       0.58      0.55      0.57     11909
+          4       0.64      0.74      0.69     11553
+
+avg / total       0.58      0.59      0.58     34486
+
+[[1769  582  130   84  141]
+ [ 678 1462  626  274  127]
+ [ 164  795 1966 1790  436]
+ [ 115  176  974 6568 4076]
+ [ 146   60  201 2547 8599]]
+MSE:  0.7440120628660906
+
+
+./test_model13.sh
+maxout num classes:  5
+BCN init num_units:  5
+vocabulary size =  732097
+data.py parse: ../data/yelp/test.txt
+dataset size =  34486
+accuracy: 59.93%
+f1: 59.53%
+             precision    recall  f1-score   support
+
+          0       0.59      0.76      0.66      2706
+          1       0.48      0.40      0.44      3167
+          2       0.53      0.43      0.47      5151
+          3       0.58      0.60      0.59     11909
+          4       0.68      0.69      0.68     11553
+
+avg / total       0.60      0.60      0.60     34486
+
+[[2063  384   88   76   95]
+ [ 951 1281  639  215   81]
+ [ 239  776 2193 1650  293]
+ [ 146  196 1062 7147 3358]
+ [ 126   52  142 3250 7983]]
+MSE:  0.6812329641013745
+
+
+
+
+
+./test_model14.sh
+maxout num classes:  5
+BCN init num_units:  5
+vocabulary size =  80001
+data.py parse: ../data/yelp/test.txt
+dataset size =  34486
+accuracy: 59.23%
+f1: 59.14%
+             precision    recall  f1-score   support
+
+          0       0.60      0.68      0.64      2706
+          1       0.44      0.44      0.44      3167
+          2       0.49      0.45      0.47      5151
+          3       0.58      0.59      0.59     11909
+          4       0.68      0.68      0.68     11553
+
+avg / total       0.59      0.59      0.59     34486
+
+[[1844  549  128   74  111]
+ [ 765 1397  697  213   95]
+ [ 191  837 2317 1543  263]
+ [ 129  264 1318 7044 3154]
+ [ 165  108  288 3169 7823]]
+MSE:  0.7391405207910456
+
+
+
+
+./test_model15.sh
+maxout num classes:  5
+BCN init num_units:  5
+vocabulary size =  80001
+data.py parse: ../data/yelp/test.txt
+dataset size =  34486
+accuracy: 58.13%
+f1: 58.04%
+             precision    recall  f1-score   support
+
+          0       0.71      0.49      0.58      2706
+          1       0.44      0.45      0.44      3167
+          2       0.46      0.42      0.44      5151
+          3       0.55      0.62      0.59     11909
+          4       0.68      0.67      0.68     11553
+
+avg / total       0.58      0.58      0.58     34486
+
+[[1321  915  190  144  136]
+ [ 362 1415  916  384   90]
+ [  74  674 2138 2002  263]
+ [  48  148 1158 7427 3128]
+ [  50   65  219 3475 7744]]
+MSE:  0.691324015542539
+
+
+
+
+./test_model16.sh
+maxout num classes:  5
+BCN init num_units:  5
+vocabulary size =  80001
+data.py parse: ../data/yelp/test.txt
+dataset size =  34486
+accuracy: 60.36%
+f1: 60.44%
+             precision    recall  f1-score   support
+
+          0       0.70      0.54      0.61      2706
+          1       0.48      0.53      0.50      3167
+          2       0.51      0.48      0.49      5151
+          3       0.57      0.67      0.62     11909
+          4       0.71      0.63      0.67     11553
+
+avg / total       0.61      0.60      0.60     34486
+
+[[1467  862  111  105  161]
+ [ 412 1680  745  228  102]
+ [  76  729 2447 1670  229]
+ [  63  194 1197 7939 2516]
+ [  64   68  263 3876 7282]]
+MSE:  0.6684741634286377
+
+
+./test_model17.sh
+maxout num classes:  5
+BCN init num_units:  5
+vocabulary size =  80001
+data.py parse: ../data/yelp/test.txt
+dataset size =  34486
+accuracy: 59.55%
+f1: 58.55%
+             precision    recall  f1-score   support
+
+          0       0.53      0.84      0.65      2706
+          1       0.45      0.29      0.35      3167
+          2       0.51      0.43      0.47      5151
+          3       0.60      0.54      0.57     11909
+          4       0.66      0.76      0.71     11553
+
+avg / total       0.59      0.60      0.59     34486
+
+[[2261  246   90   25   84]
+ [1287  921  664  204   91]
+ [ 343  680 2231 1574  323]
+ [ 178  148 1207 6372 4004]
+ [ 174   34  159 2436 8750]]
+MSE:  0.7030679116163081
