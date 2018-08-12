@@ -1,4 +1,5 @@
-# bcn_based
+# Bi-Attentive Classification Network
+
 
 1) Train ori full classifier: python3 main.py --gpu 2 --model_file_name 'full_ori.pth.tar' (on server margo 2, 91.04%, for rt: first commented paragraph in run_RT.py)
 2) Train slectors initialized with full_ori.pth.tar classifier: python3 imdb_main.py --gpu 2 --model_file_name model_sparsity_0.00075_coherent_2.0.pth.tar --load_model 1 --classifier_file_name full_ori.pth.tar
